@@ -9,10 +9,10 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 RUN mkdir output_json
-COPY code /emosense/code
+COPY human_emotion .
 # COPY config.json .
 
 EXPOSE 8000
 
-WORKDIR /emosense/code
+WORKDIR /emosense/human_emotion
 CMD ["python", "main_server.py", "runserver", "0.0.0.0:8000"]
