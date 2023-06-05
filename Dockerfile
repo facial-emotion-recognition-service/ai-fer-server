@@ -14,5 +14,5 @@ COPY human_emotion .
 
 EXPOSE 8000
 
-WORKDIR /emosense
+WORKDIR /emosense/server
 CMD ["python", "main_server.py", "runserver", "0.0.0.0:8000"]
