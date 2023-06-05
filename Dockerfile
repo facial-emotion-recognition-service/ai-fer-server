@@ -9,10 +9,10 @@ RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 RUN mkdir output_json
-COPY code .
+COPY code /emosense/code
 # COPY config.json .
 
 EXPOSE 8000
 
-WORKDIR /emosense/interface
+WORKDIR /emosense/code
 CMD ["python", "main_server.py", "runserver", "0.0.0.0:8000"]
