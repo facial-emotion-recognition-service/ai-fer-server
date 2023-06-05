@@ -4,7 +4,6 @@ sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
 from app_config_provider import AppConfigProvider
 from model_config_provider import ModelConfigProvider
-from args_provider import ArgsProvider
 from app_logic import AppLogic
 
 from django.conf import settings
