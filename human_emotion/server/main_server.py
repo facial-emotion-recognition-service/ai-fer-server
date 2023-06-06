@@ -39,7 +39,6 @@ if __name__ == "__main__":
     app_config = appConfigProvider.app_config
     model_config_path = app_config["config_path"]
     modelConfigProvider = ModelConfigProvider(model_config_path)
-    argsProvider = ArgsProvider()
 
     config_path = app_config["config_path"]
     model_path = app_config["model_path"]
