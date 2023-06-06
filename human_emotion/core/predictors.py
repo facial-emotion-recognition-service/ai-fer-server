@@ -3,9 +3,7 @@
 Provides an API for getting various types of pre-formatted predictions from the
 underlying model for various types of input data.
 """
-import human_emotion.core.extraction as extraction
 import human_emotion.core.model as model
-
 
 class Predictor:
     def __init__(self, model_path, config_data):
@@ -54,33 +52,3 @@ class Predictor:
         }
 
         return result
-
-    def get_image_emotions(self, image_file, top_n=1, ret="text"):
-        """Returns the top n emotions for all deteceted faces in an image.
-
-        Retrieves the top n emotions for each face detected in an image file,
-        along with their probabilities and the coordinates of the face.
-
-        Args:
-            image_file: Path to the image file.
-            top_n: Number of top emotions to return.
-            ret: Label type for the returned dict. One of "text" or "num".
-
-        Returns:
-            A list of dictionaries with each element containing a "prediction"
-            and a "coords" item. The former is a dict mapping the top n emotions
-            to their probabilities and the latter contains the coordinates of
-            the face. An empty list is returned if no faces are detected.
-        """
-        face_emotions = []
-
-        face_coords, image = extraction.extract_faces(image_file)
-        for x1, x2, y1, y2 in face_coords:
-            face = image[x1:x2, y1:y2]
-            face_preprocessed = model.preprocess(face)
-            predictions = self.get_face_emotions(face_preprocessed, top_n, ret)
-            face_emotions.append(
-                {"prediction": predictions, "coords": (x1, x2, y1, y2)}
-            )
-
-        return face_emotions
