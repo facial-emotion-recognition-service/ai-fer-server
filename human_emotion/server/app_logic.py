@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from human_emotion.core.predictors import Predictor
+from predictors import Predictor
 
 
 class AppLogic:
