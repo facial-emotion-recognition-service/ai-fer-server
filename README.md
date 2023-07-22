@@ -1,2 +1,2 @@
 # ai-fer-server
-A server in python that accept image of face as input and output an emotion report
+A python (Django) server that accepts an image of a face as input and outputs an emotion report
