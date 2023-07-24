@@ -1,6 +1,6 @@
 FROM python:3.10-buster
 
-WORKDIR /emosense
+WORKDIR /ai-fers
 
 RUN apt-get -y update && apt-get install -y build-essential cmake
 
@@ -14,5 +14,5 @@ COPY human_emotion .
 
 EXPOSE 8000
 
-WORKDIR /emosense/server
+WORKDIR /ai-fers/server
 CMD ["python", "main_server.py", "runserver", "0.0.0.0:8000"]

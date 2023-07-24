@@ -1,7 +1,7 @@
 import os, sys
 
-sys.path.append('/emosense/server')
-sys.path.append('/emosense/core')
+sys.path.append("/ai-fers/server")
+sys.path.append("/ai-fers/core")
 
 from app_config_provider import AppConfigProvider
 from model_config_provider import ModelConfigProvider
