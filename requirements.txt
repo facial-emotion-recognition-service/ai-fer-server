@@ -7,10 +7,5 @@ python-dotenv
 Pillow
 ipdb
 
-# For face detection
-opencv-python
-dlib-binary
-face-recognition
-
 # For the web app
 django
