@@ -3,7 +3,8 @@
 Provides an API for getting various types of pre-formatted predictions from the
 underlying model for various types of input data.
 """
-import model as model
+import ai_fers.core.model as model
+
 
 class Predictor:
     def __init__(self, model_path, config_data):
