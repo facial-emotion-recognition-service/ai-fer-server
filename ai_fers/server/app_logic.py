@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from predictors import Predictor
+from ai_fers.core.predictors import Predictor
 
 
 class AppLogic:
