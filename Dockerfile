@@ -15,7 +15,7 @@ WORKDIR /ai_fers
 RUN mkdir input_images
 RUN mkdir output_json
 RUN mkdir models
-COPY config.json ./config/
+COPY config/config.json ./config/
 ENV IMAGE_INPUT_DIR="../input_images/"
 ENV JSON_OUTPUT_DIR="../output_json/"
 ENV MODEL_PATH="../models/model.h5"
