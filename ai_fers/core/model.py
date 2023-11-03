@@ -3,6 +3,8 @@
 Provides API for interacting with the trained model, including loading and
 preprocessing images, and making predictions.
 """
+import os
+
 import numpy as np
 import tensorflow as tf
 from google.cloud import storage
@@ -53,7 +55,7 @@ def preprocess(face_image):
 
 class Model:
     def __init__(self, model_path, config_data, bucket_name):
-        self._model = self.load_model()
+        self._model = self.load_model(model_path, bucket_name)
         self.labels_text2num = config_data["labels_text2num"]
         self.labels_num2text = {v: k for k, v in self.labels_text2num.items()}
 
@@ -69,26 +71,18 @@ class Model:
         """
         return self._model.predict(img_array)[0]
 
-    def load_model(model_path, bucket_name):
-        if model_path[:5] == "gs://":
+    def load_model(self, model_path, bucket_name):
+        if bucket_name:
             client = storage.Client()
-            blobs = list(client.get_bucket().list_blobs(prefix="model"))
+            bucket = client.get_bucket(bucket_name)
+            blobs = bucket.list_blobs(prefix="models/")
 
         try:
             latest_blob = max(blobs, key=lambda x: x.updated)
-            latest_model_path_to_save = os.path.join(
-                LOCAL_REGISTRY_PATH, latest_blob.name
-            )
-            latest_blob.download_to_filename(latest_model_path_to_save)
-
-            latest_model = keras.models.load_model(latest_model_path_to_save)
-
-            print("✅ Latest model downloaded from cloud storage")
-
-            return latest_model
+            latest_blob.download_to_filename(model_path)
         except:
-            print(f"\n❌ No model found in GCS bucket {BUCKET_NAME}")
+            print(f"\nNo model found in GCS bucket {bucket_name}")
 
             return None
-        else:
-            tf.keras.models.load_model(model_path, compile=True)
+
+        return tf.keras.models.load_model(model_path, compile=True)

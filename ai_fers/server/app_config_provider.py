@@ -7,7 +7,8 @@ class AppConfigProvider:
         self._config_path = os.environ.get("CONFIG_PATH")
         self._image_input_dir = os.environ.get("IMAGE_INPUT_DIR")
         self._json_output_dir = os.environ.get("JSON_OUTPUT_DIR")
-        self._gcs_bucket = os.environ.get("BUCKET_NAME")
+        self._gcs_bucket = os.environ.get("BUCKET_NAME", None)
+        # Note: Only set BUCKET_NAME if loading the model from GCS
 
     @property
     def app_config(self):
