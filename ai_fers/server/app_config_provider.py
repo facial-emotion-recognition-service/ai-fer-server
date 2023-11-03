@@ -7,6 +7,7 @@ class AppConfigProvider:
         self._config_path = os.environ.get("CONFIG_PATH")
         self._image_input_dir = os.environ.get("IMAGE_INPUT_DIR")
         self._json_output_dir = os.environ.get("JSON_OUTPUT_DIR")
+        self._gcs_bucket = os.environ.get("BUCKET_NAME")
 
     @property
     def app_config(self):
@@ -15,6 +16,7 @@ class AppConfigProvider:
             "config_path": self._config_path,
             "image_input_dir": self._image_input_dir,
             "json_output_dir": self._json_output_dir,
+            "gcs_bucket": self._gcs_bucket,
         }
 
         return result

@@ -7,8 +7,8 @@ import ai_fers.core.model as model
 
 
 class Predictor:
-    def __init__(self, model_path, config_data):
-        self.model = model.Model(model_path, config_data)
+    def __init__(self, model_path, config_data, bucket_name):
+        self.model = model.Model(model_path, config_data, bucket_name)
 
     def get_face_image_emotions(self, face_image_file, top_n=1, ret="text"):
         """Returns the top n emotions for an image of a single, isolated face.

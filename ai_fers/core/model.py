@@ -3,8 +3,9 @@
 Provides API for interacting with the trained model, including loading and
 preprocessing images, and making predictions.
 """
-import tensorflow as tf
 import numpy as np
+import tensorflow as tf
+from google.cloud import storage
 
 
 def preprocess_file(img_path):
@@ -51,8 +52,8 @@ def preprocess(face_image):
 
 
 class Model:
-    def __init__(self, model_path, config_data):
-        self._model = tf.keras.models.load_model(model_path, compile=True)
+    def __init__(self, model_path, config_data, bucket_name):
+        self._model = self.load_model()
         self.labels_text2num = config_data["labels_text2num"]
         self.labels_num2text = {v: k for k, v in self.labels_text2num.items()}
 
@@ -67,3 +68,27 @@ class Model:
             array of the probabilities for each emotion label.
         """
         return self._model.predict(img_array)[0]
+
+    def load_model(model_path, bucket_name):
+        if model_path[:5] == "gs://":
+            client = storage.Client()
+            blobs = list(client.get_bucket().list_blobs(prefix="model"))
+
+        try:
+            latest_blob = max(blobs, key=lambda x: x.updated)
+            latest_model_path_to_save = os.path.join(
+                LOCAL_REGISTRY_PATH, latest_blob.name
+            )
+            latest_blob.download_to_filename(latest_model_path_to_save)
+
+            latest_model = keras.models.load_model(latest_model_path_to_save)
+
+            print("✅ Latest model downloaded from cloud storage")
+
+            return latest_model
+        except:
+            print(f"\n❌ No model found in GCS bucket {BUCKET_NAME}")
+
+            return None
+        else:
+            tf.keras.models.load_model(model_path, compile=True)
