@@ -41,7 +41,7 @@ if __name__ == "__main__":
     model_path = app_config["model_path"]
     image_input_dir = app_config["image_input_dir"]
     json_output_dir = app_config["json_output_dir"]
-    bucket_name = app_config["bucket_name"]
+    bucket_name = app_config.get("bucket_name")
 
     model_config = modelConfigProvider.config_data
 
