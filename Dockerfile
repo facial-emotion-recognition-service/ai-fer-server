@@ -20,6 +20,7 @@ ENV IMAGE_INPUT_DIR="../input_images/"
 ENV JSON_OUTPUT_DIR="../output_json/"
 ENV MODEL_PATH="../models/model.h5"
 ENV CONFIG_PATH="../config/config.json"
+# Comment out the line below if not using GCS
 ENV BUCKET_NAME="fer-service-bucket"
 
 EXPOSE 8000
