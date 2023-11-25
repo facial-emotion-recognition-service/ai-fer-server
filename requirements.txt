@@ -5,6 +5,7 @@ tensorflow==2.12.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
 numpy==1.23.5
 Pillow
 ipdb
+google-cloud-storage
 
 # For the web app
 django

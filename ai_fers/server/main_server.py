@@ -1,13 +1,12 @@
 import sys
 
 from app_config_provider import AppConfigProvider
-from model_config_provider import ModelConfigProvider
 from app_logic import AppLogic
-
 from django.conf import settings
-from django.urls import path
 from django.core.management import execute_from_command_line
 from django.http import HttpResponse
+from django.urls import path
+from model_config_provider import ModelConfigProvider
 
 settings.configure(
     DEBUG=True,
@@ -42,9 +41,12 @@ if __name__ == "__main__":
     model_path = app_config["model_path"]
     image_input_dir = app_config["image_input_dir"]
     json_output_dir = app_config["json_output_dir"]
+    bucket_name = app_config.get("bucket_name")
 
     model_config = modelConfigProvider.config_data
 
-    app = AppLogic(model_path, image_input_dir, json_output_dir, model_config)
+    app = AppLogic(
+        model_path, image_input_dir, json_output_dir, model_config, bucket_name
+    )
 
     execute_from_command_line(sys.argv)
